@@ -1,0 +1,72 @@
+# Min binary heap. Values must support numeric ordering.
+class BinaryHeap
+    def initialize()
+        self.items = []
+    end
+    def push(value)
+        self.items.push(value)
+        index = self.items.length() - 1
+        while index > 0
+            parent = int((index - 1) / 2)
+            if self.items[parent] <= self.items[index]
+                break
+            end
+            temp = self.items[parent]
+            self.items[parent] = self.items[index]
+            self.items[index] = temp
+            index = parent
+        end
+        return self.items.length()
+    end
+    def peek()
+        return self.items.first()
+    end
+    def pop()
+        n = self.items.length()
+        if n == 0
+            return nil
+        end
+        result = self.items[0]
+        last = self.items.pop()
+        if self.items.length() > 0
+            self.items[0] = last
+            index = 0
+            while true
+                left = index * 2 + 1
+                right = left + 1
+                smallest = index
+                if left < self.items.length() and self.items[left] < self.items[smallest]
+                    smallest = left
+                end
+                if right < self.items.length() and self.items[right] < self.items[smallest]
+                    smallest = right
+                end
+                if smallest == index
+                    break
+                end
+                temp = self.items[index]
+                self.items[index] = self.items[smallest]
+                self.items[smallest] = temp
+                index = smallest
+            end
+        end
+        return result
+    end
+    def size()
+        return self.items.length()
+    end
+    def is_empty()
+        return self.items.length() == 0
+    end
+    def clear()
+        self.items.clear()
+        return self
+    end
+    def to_array()
+        result = []
+        for value in self.items
+            result.push(value)
+        end
+        return result
+    end
+end

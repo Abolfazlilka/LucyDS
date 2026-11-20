@@ -1,0 +1,174 @@
+class BSTNode
+    def initialize(value)
+        self.value = value
+        self.left = nil
+        self.right = nil
+    end
+end
+
+class BinarySearchTree
+    def initialize()
+        self.root = nil
+        self.count = 0
+    end
+    def insert(value)
+        if self.root == nil
+            self.root = BSTNode.new(value)
+            self.count += 1
+            return true
+        end
+        current = self.root
+        while true
+            if value == current.value
+                return false
+            else if value < current.value
+                if current.left == nil
+                    current.left = BSTNode.new(value)
+                    self.count += 1
+                    return true
+                end
+                current = current.left
+            else
+                if current.right == nil
+                    current.right = BSTNode.new(value)
+                    self.count += 1
+                    return true
+                end
+                current = current.right
+            end
+        end
+        return false
+    end
+    def contains(value)
+        current = self.root
+        while current != nil
+            if value == current.value
+                return true
+            else if value < current.value
+                current = current.left
+            else
+                current = current.right
+            end
+        end
+        return false
+    end
+    def remove(value)
+        parent = nil
+        current = self.root
+        while current != nil and current.value != value
+            parent = current
+            if value < current.value
+                current = current.left
+            else
+                current = current.right
+            end
+        end
+        if current == nil
+            return false
+        end
+        if current.left != nil and current.right != nil
+            successor_parent = current
+            successor = current.right
+            while successor.left != nil
+                successor_parent = successor
+                successor = successor.left
+            end
+            current.value = successor.value
+            parent = successor_parent
+            current = successor
+        end
+        if current.left != nil
+            replacement = current.left
+        else
+            replacement = current.right
+        end
+        if parent == nil
+            self.root = replacement
+        else if parent.left != nil and parent.left.value == current.value
+            parent.left = replacement
+        else
+            parent.right = replacement
+        end
+        self.count -= 1
+        return true
+    end
+    def min()
+        if self.root == nil
+            return nil
+        end
+        current = self.root
+        while current.left != nil
+            current = current.left
+        end
+        return current.value
+    end
+    def max()
+        if self.root == nil
+            return nil
+        end
+        current = self.root
+        while current.right != nil
+            current = current.right
+        end
+        return current.value
+    end
+    def inorder()
+        result = []
+        self._inorder(self.root, result)
+        return result
+    end
+    def _inorder(node, result)
+        if node == nil
+            return
+        end
+        self._inorder(node.left, result)
+        result.push(node.value)
+        self._inorder(node.right, result)
+    end
+    def preorder()
+        result = []
+        self._preorder(self.root, result)
+        return result
+    end
+    def _preorder(node, result)
+        if node == nil
+            return
+        end
+        result.push(node.value)
+        self._preorder(node.left, result)
+        self._preorder(node.right, result)
+    end
+    def postorder()
+        result = []
+        self._postorder(self.root, result)
+        return result
+    end
+    def _postorder(node, result)
+        if node == nil
+            return
+        end
+        self._postorder(node.left, result)
+        self._postorder(node.right, result)
+        result.push(node.value)
+    end
+    def size()
+        return self.count
+    end
+    def is_empty()
+        return self.count == 0
+    end
+    def height()
+        return self._height(self.root)
+    end
+    def _height(node)
+        if node == nil
+            return 0
+        end
+        left_height = self._height(node.left)
+        right_height = self._height(node.right)
+        if left_height > right_height
+            return left_height + 1
+        end
+        return right_height + 1
+    end
+end
