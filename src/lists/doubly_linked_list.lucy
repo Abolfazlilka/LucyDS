@@ -1,0 +1,180 @@
+class DoublyLinkedListNode
+    def initialize(value)
+        self.value = value
+        self.next = nil
+        self.prev = nil
+    end
+end
+
+class DoublyLinkedList
+    def initialize()
+        self.head = nil
+        self.tail = nil
+        self.count = 0
+    end
+
+    def append(value)
+        node = DoublyLinkedListNode.new(value)
+        if self.tail == nil
+            self.head = node
+            self.tail = node
+        else
+            node.prev = self.tail
+            self.tail.next = node
+            self.tail = node
+        end
+        self.count += 1
+        return self
+    end
+
+    def prepend(value)
+        node = DoublyLinkedListNode.new(value)
+        if self.head == nil
+            self.head = node
+            self.tail = node
+        else
+            node.next = self.head
+            self.head.prev = node
+            self.head = node
+        end
+        self.count += 1
+        return self
+    end
+
+    def get(index)
+        if index < 0 or index >= self.count
+            return nil
+        end
+        if index < int(self.count / 2)
+            current = self.head
+            i = 0
+            while i < index
+                current = current.next
+                i += 1
+            end
+        else
+            current = self.tail
+            i = self.count - 1
+            while i > index
+                current = current.prev
+                i -= 1
+            end
+        end
+        return current.value
+    end
+
+    def insert(index, value)
+        if index < 0 or index > self.count
+            return false
+        end
+        if index == 0
+            self.prepend(value)
+            return true
+        end
+        if index == self.count
+            self.append(value)
+            return true
+        end
+        current = self.head
+        i = 0
+        while i < index
+            current = current.next
+            i += 1
+        end
+        node = DoublyLinkedListNode.new(value)
+        node.prev = current.prev
+        node.next = current
+        current.prev.next = node
+        current.prev = node
+        self.count += 1
+        return true
+    end
+
+    def remove_at(index)
+        if index < 0 or index >= self.count
+            return nil
+        end
+        current = self.head
+        i = 0
+        while i < index
+            current = current.next
+            i += 1
+        end
+        if current.prev == nil
+            self.head = current.next
+        else
+            current.prev.next = current.next
+        end
+        if current.next == nil
+            self.tail = current.prev
+        else
+            current.next.prev = current.prev
+        end
+        self.count -= 1
+        if self.count == 0
+            self.head = nil
+            self.tail = nil
+        end
+        return current.value
+    end
+
+    def remove(value)
+        current = self.head
+        i = 0
+        while current != nil
+            if current.value == value
+                self.remove_at(i)
+                return true
+            end
+            current = current.next
+            i += 1
+        end
+        return false
+    end
+
+    def contains(value)
+        current = self.head
+        while current != nil
+            if current.value == value
+                return true
+            end
+            current = current.next
+        end
+        return false
+    end
+
+    def size()
+        return self.count
+    end
+
+    def is_empty()
+        return self.count == 0
+    end
+
+    def clear()
+        self.head = nil
+        self.tail = nil
+        self.count = 0
+        return self
+    end
+
+    def to_array()
+        result = []
+        current = self.head
+        while current != nil
+            result.push(current.value)
+            current = current.next
+        end
+        return result
+    end
+
+    def to_array_reverse()
+        result = []
+        current = self.tail
+        while current != nil
+            result.push(current.value)
+            current = current.prev
+        end
+        return result
+    end
+end
