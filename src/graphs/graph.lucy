@@ -1,0 +1,112 @@
+# Vertices are string identifiers. Adjacency is stored in maps because Lucy
+# maps require string keys. Edge weights are numeric.
+class Graph
+    def initialize(directed = false)
+        self.directed = directed
+        self.adjacency = {}
+        self.edge_count = 0
+    end
+    def add_vertex(vertex)
+        if type(vertex) != "string"
+            return false
+        end
+        if self.adjacency.has(vertex)
+            return false
+        end
+        self.adjacency.set(vertex, {})
+        return true
+    end
+    def has_vertex(vertex)
+        return self.adjacency.has(vertex)
+    end
+    def add_edge(from_vertex, to_vertex, weight = 1)
+        if type(from_vertex) != "string" or type(to_vertex) != "string"
+            return false
+        end
+        if !self.has_vertex(from_vertex)
+            self.add_vertex(from_vertex)
+        end
+        if !self.has_vertex(to_vertex)
+            self.add_vertex(to_vertex)
+        end
+        from_edges = self.adjacency.get(from_vertex)
+        if !from_edges.has(to_vertex)
+            self.edge_count += 1
+        end
+        from_edges.set(to_vertex, weight)
+        if !self.directed
+            to_edges = self.adjacency.get(to_vertex)
+            to_edges.set(from_vertex, weight)
+        end
+        return true
+    end
+    def has_edge(from_vertex, to_vertex)
+        if !self.has_vertex(from_vertex)
+            return false
+        end
+        return self.adjacency.get(from_vertex).has(to_vertex)
+    end
+    def edge_weight(from_vertex, to_vertex)
+        if !self.has_edge(from_vertex, to_vertex)
+            return nil
+        end
+        return self.adjacency.get(from_vertex).get(to_vertex)
+    end
+    def neighbors(vertex)
+        if !self.has_vertex(vertex)
+            return []
+        end
+        return self.adjacency.get(vertex).keys()
+    end
+    def vertices()
+        return self.adjacency.keys()
+    end
+    def remove_edge(from_vertex, to_vertex)
+        if !self.has_edge(from_vertex, to_vertex)
+            return false
+        end
+        self.adjacency.get(from_vertex).delete(to_vertex)
+        if !self.directed
+            self.adjacency.get(to_vertex).delete(from_vertex)
+        end
+        self.edge_count -= 1
+        return true
+    end
+    def remove_vertex(vertex)
+        if !self.has_vertex(vertex)
+            return false
+        end
+        neighbors = self.neighbors(vertex)
+        for neighbor in neighbors
+            if self.directed
+                self.adjacency.get(neighbor).delete(vertex)
+                self.edge_count -= 1
+            else
+                self.edge_count -= 1
+            end
+        end
+        self.adjacency.delete(vertex)
+        if self.directed
+            keys = self.adjacency.keys()
+            for key in keys
+                if self.adjacency.get(key).has(vertex)
+                    self.adjacency.get(key).delete(vertex)
+                    self.edge_count -= 1
+                end
+            end
+        end
+        return true
+    end
+    def vertex_count()
+        return self.adjacency.keys().length()
+    end
+    def size()
+        return self.vertex_count()
+    end
+    def edges_count()
+        return self.edge_count
+    end
+    def is_directed()
+        return self.directed
+    end
+end
