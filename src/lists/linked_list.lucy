@@ -1,202 +1,202 @@
 # Singly linked list. Indexes are zero-based.
-class LinkedListNode
-    def initialize(value)
+class LinkedListNode {
+    func initialize(value) {
         self.value = value
         self.next = nil
-    end
-end
+    }
+}
 
-class LinkedList
-    def initialize()
+class LinkedList {
+    func initialize() {
         self.head = nil
         self.tail = nil
         self.count = 0
-    end
+    }
 
-    def append(value)
-        node = LinkedListNode.new(value)
-        if self.head == nil
+    func append(value) {
+        let node = LinkedListNode.new(value)
+        if self.head == nil {
             self.head = node
             self.tail = node
-        else
+        } else {
             self.tail.next = node
             self.tail = node
-        end
+        }
         self.count += 1
         return self
-    end
+    }
 
-    def prepend(value)
-        node = LinkedListNode.new(value)
-        if self.head == nil
+    func prepend(value) {
+        let node = LinkedListNode.new(value)
+        if self.head == nil {
             self.head = node
             self.tail = node
-        else
+        } else {
             node.next = self.head
             self.head = node
-        end
+        }
         self.count += 1
         return self
-    end
+    }
 
-    def insert(index, value)
-        if index < 0 or index > self.count
+    func insert(index, value) {
+        if index < 0 or index > self.count {
             return false
-        end
-        if index == 0
+        }
+        if index == 0 {
             self.prepend(value)
             return true
-        end
-        if index == self.count
+        }
+        if index == self.count {
             self.append(value)
             return true
-        end
-        previous = self.head
-        i = 0
-        while i < index - 1
+        }
+        var previous = self.head
+        var i = 0
+        while i < index - 1 {
             previous = previous.next
             i += 1
-        end
-        node = LinkedListNode.new(value)
+        }
+        let node = LinkedListNode.new(value)
         node.next = previous.next
         previous.next = node
         self.count += 1
         return true
-    end
+    }
 
-    def get(index)
-        if index < 0 or index >= self.count
+    func get(index) {
+        if index < 0 or index >= self.count {
             return nil
-        end
-        current = self.head
-        i = 0
-        while i < index
+        }
+        var current = self.head
+        var i = 0
+        while i < index {
             current = current.next
             i += 1
-        end
+        }
         return current.value
-    end
+    }
 
-    def set(index, value)
-        if index < 0 or index >= self.count
+    func set(index, value) {
+        if index < 0 or index >= self.count {
             return false
-        end
-        current = self.head
-        i = 0
-        while i < index
+        }
+        var current = self.head
+        var i = 0
+        while i < index {
             current = current.next
             i += 1
-        end
+        }
         current.value = value
         return true
-    end
+    }
 
-    def remove_at(index)
-        if index < 0 or index >= self.count
+    func remove_at(index) {
+        if index < 0 or index >= self.count {
             return nil
-        end
-        if index == 0
-            removed = self.head
+        }
+        if index == 0 {
+            let removed = self.head
             self.head = self.head.next
             self.count -= 1
-            if self.count == 0
+            if self.count == 0 {
                 self.tail = nil
-            end
+            }
             return removed.value
-        end
-        previous = self.head
-        i = 0
-        while i < index - 1
+        }
+        var previous = self.head
+        var i = 0
+        while i < index - 1 {
             previous = previous.next
             i += 1
-        end
-        removed = previous.next
+        }
+        let removed = previous.next
         previous.next = removed.next
-        if index == self.count - 1
+        if index == self.count - 1 {
             self.tail = previous
-        end
+        }
         self.count -= 1
         return removed.value
-    end
+    }
 
-    def remove(value)
-        if self.head == nil
+    func remove(value) {
+        if self.head == nil {
             return false
-        end
-        if self.head.value == value
+        }
+        if self.head.value == value {
             self.remove_at(0)
             return true
-        end
-        previous = self.head
-        current = self.head.next
-        while current != nil
-            if current.value == value
+        }
+        var previous = self.head
+        var current = self.head.next
+        while current != nil {
+            if current.value == value {
                 previous.next = current.next
-                if current.next == nil
+                if current.next == nil {
                     self.tail = previous
-                end
+                }
                 self.count -= 1
                 return true
-            end
+            }
             previous = current
             current = current.next
-        end
+        }
         return false
-    end
+    }
 
-    def contains(value)
+    func contains(value) {
         return self.index(value) != nil
-    end
+    }
 
-    def index(value)
-        current = self.head
-        i = 0
-        while current != nil
-            if current.value == value
+    func index(value) {
+        var current = self.head
+        var i = 0
+        while current != nil {
+            if current.value == value {
                 return i
-            end
+            }
             current = current.next
             i += 1
-        end
+        }
         return nil
-    end
+    }
 
-    def size()
+    func size() {
         return self.count
-    end
+    }
 
-    def is_empty()
+    func is_empty() {
         return self.count == 0
-    end
+    }
 
-    def clear()
+    func clear() {
         self.head = nil
         self.tail = nil
         self.count = 0
         return self
-    end
+    }
 
-    def to_array()
-        result = []
-        current = self.head
-        while current != nil
+    func to_array() {
+        let result = []
+        var current = self.head
+        while current != nil {
             result.push(current.value)
             current = current.next
-        end
+        }
         return result
-    end
+    }
 
-    def reverse()
-        previous = nil
-        current = self.head
+    func reverse() {
+        var previous = nil
+        var current = self.head
         self.tail = self.head
-        while current != nil
-            following = current.next
+        while current != nil {
+            let following = current.next
             current.next = previous
             previous = current
             current = following
-        end
+        }
         self.head = previous
         return self
-    end
-end
+    }
+}

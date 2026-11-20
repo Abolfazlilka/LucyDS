@@ -1,42 +1,42 @@
-class Deque
-    def initialize()
+class Deque {
+    func initialize() {
         self.items = []
-    end
-    def push_front(value)
+    }
+    func push_front(value) {
         self.items.unshift(value)
         return self.items.length()
-    end
-    def push_back(value)
+    }
+    func push_back(value) {
         self.items.push(value)
         return self.items.length()
-    end
-    def pop_front()
+    }
+    func pop_front() {
         return self.items.shift()
-    end
-    def pop_back()
+    }
+    func pop_back() {
         return self.items.pop()
-    end
-    def front()
+    }
+    func front() {
         return self.items.first()
-    end
-    def back()
+    }
+    func back() {
         return self.items.last()
-    end
-    def size()
+    }
+    func size() {
         return self.items.length()
-    end
-    def is_empty()
+    }
+    func is_empty() {
         return self.items.length() == 0
-    end
-    def clear()
+    }
+    func clear() {
         self.items.clear()
         return self
-    end
-    def to_array()
-        result = []
-        for value in self.items
+    }
+    func to_array() {
+        let result = []
+        for value in self.items {
             result.push(value)
-        end
+        }
         return result
-    end
-end
+    }
+}

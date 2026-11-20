@@ -1,124 +1,124 @@
-class AVLNode
-    def initialize(value)
+class AVLNode {
+    func initialize(value) {
         self.value = value
         self.left = nil
         self.right = nil
         self.height = 1
-    end
-end
+    }
+}
 
-class AVLTree
-    def initialize()
+class AVLTree {
+    func initialize() {
         self.root = nil
         self.count = 0
-    end
-    def _height(node)
-        if node == nil
+    }
+    private func _height(node) {
+        if node == nil {
             return 0
-        end
+        }
         return node.height
-    end
-    def _max(a, b)
-        if a > b
+    }
+    private func _max(a, b) {
+        if a > b {
             return a
-        end
+        }
         return b
-    end
-    def _update(node)
+    }
+    private func _update(node) {
         node.height = self._max(self._height(node.left), self._height(node.right)) + 1
-    end
-    def _balance(node)
-        if node == nil
+    }
+    private func _balance(node) {
+        if node == nil {
             return 0
-        end
+        }
         return self._height(node.left) - self._height(node.right)
-    end
-    def _rotate_right(y)
-        x = y.left
-        middle = x.right
+    }
+    private func _rotate_right(y) {
+        let x = y.left
+        let middle = x.right
         x.right = y
         y.left = middle
         self._update(y)
         self._update(x)
         return x
-    end
-    def _rotate_left(x)
-        y = x.right
-        middle = y.left
+    }
+    private func _rotate_left(x) {
+        let y = x.right
+        let middle = y.left
         y.left = x
         x.right = middle
         self._update(x)
         self._update(y)
         return y
-    end
-    def insert(value)
-        before = self.count
+    }
+    func insert(value) {
+        let before = self.count
         self.root = self._insert(self.root, value)
         return self.count > before
-    end
-    def _insert(node, value)
-        if node == nil
+    }
+    private func _insert(node, value) {
+        if node == nil {
             self.count += 1
             return AVLNode.new(value)
-        end
-        if value < node.value
+        }
+        if value < node.value {
             node.left = self._insert(node.left, value)
-        else if value > node.value
+        } else if value > node.value {
             node.right = self._insert(node.right, value)
-        else
+        } else {
             return node
-        end
+        }
         self._update(node)
-        balance = self._balance(node)
-        if balance > 1 and value < node.left.value
+        let balance = self._balance(node)
+        if balance > 1 and value < node.left.value {
             return self._rotate_right(node)
-        end
-        if balance < -1 and value > node.right.value
+        }
+        if balance < -1 and value > node.right.value {
             return self._rotate_left(node)
-        end
-        if balance > 1 and value > node.left.value
+        }
+        if balance > 1 and value > node.left.value {
             node.left = self._rotate_left(node.left)
             return self._rotate_right(node)
-        end
-        if balance < -1 and value < node.right.value
+        }
+        if balance < -1 and value < node.right.value {
             node.right = self._rotate_right(node.right)
             return self._rotate_left(node)
-        end
+        }
         return node
-    end
-    def contains(value)
-        current = self.root
-        while current != nil
-            if value == current.value
+    }
+    func contains(value) {
+        var current = self.root
+        while current != nil {
+            if value == current.value {
                 return true
-            else if value < current.value
+            } else if value < current.value {
                 current = current.left
-            else
+            } else {
                 current = current.right
-            end
-        end
+            }
+        }
         return false
-    end
-    def inorder()
-        result = []
+    }
+    func inorder() {
+        let result = []
         self._walk(self.root, result)
         return result
-    end
-    def _walk(node, result)
-        if node == nil
+    }
+    private func _walk(node, result) {
+        if node == nil {
             return
-        end
+        }
         self._walk(node.left, result)
         result.push(node.value)
         self._walk(node.right, result)
-    end
-    def size()
+    }
+    func size() {
         return self.count
-    end
-    def height()
+    }
+    func height() {
         return self._height(self.root)
-    end
-    def is_empty()
+    }
+    func is_empty() {
         return self.count == 0
-    end
-end
+    }
+}

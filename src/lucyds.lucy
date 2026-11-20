@@ -1,16 +1,15 @@
-# LucyDS public facade. Add every category directory under src to LUCY_PATH.
-from linked_list import LinkedList
-from doubly_linked_list import DoublyLinkedList
-from stack import Stack
-from queue import Queue
-from deque import Deque
-from binary_search_tree import BinarySearchTree
-from avl_tree import AVLTree
-from binary_heap import BinaryHeap
-from trie import Trie
-from graph import Graph
-from union_find import UnionFind
-from hash_table import HashTable
-from searching import linear_search, binary_search, lower_bound
-from sorting import bubble_sort, selection_sort, insertion_sort, merge_sort, quick_sort
-from graph_algorithms import breadth_first_search, depth_first_search, dijkstra
+from lists.linked_list import LinkedList
+from lists.doubly_linked_list import DoublyLinkedList
+from stacks.stack import Stack
+from queues.queue import Queue
+from queues.deque import Deque
+from trees.binary_search_tree import BinarySearchTree
+from trees.avl_tree import AVLTree
+from trees.binary_heap import BinaryHeap
+from trees.trie import Trie
+from graphs.graph import Graph
+from graphs.union_find import UnionFind
+from hash_tables.hash_table import HashTable
+from algorithms.searching import linear_search, binary_search, lower_bound
+from algorithms.sorting import bubble_sort, selection_sort, insertion_sort, merge_sort, quick_sort
+from algorithms.graph_algorithms import breadth_first_search, depth_first_search, dijkstra

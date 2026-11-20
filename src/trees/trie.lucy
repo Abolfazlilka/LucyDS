@@ -1,60 +1,60 @@
-class TrieNode
-    def initialize()
+class TrieNode {
+    func initialize() {
         self.children = {}
         self.terminal = false
-    end
-end
+    }
+}
 
-class Trie
-    def initialize()
+class Trie {
+    func initialize() {
         self.root = TrieNode.new()
         self.count = 0
-    end
-    def insert(word)
-        current = self.root
-        i = 0
-        while i < word.length()
-            character = word.char_at(i)
-            if !current.children.has(character)
+    }
+    func insert(word) {
+        var current = self.root
+        var i = 0
+        while i < word.length() {
+            let character = word.char_at(i)
+            if !current.children.has(character) {
                 current.children.set(character, TrieNode.new())
-            end
+            }
             current = current.children.get(character)
             i += 1
-        end
-        if current.terminal
+        }
+        if current.terminal {
             return false
-        end
+        }
         current.terminal = true
         self.count += 1
         return true
-    end
-    def contains(word)
-        node = self._find(word)
-        if node == nil
+    }
+    func contains(word) {
+        let node = self._find(word)
+        if node == nil {
             return false
-        end
+        }
         return node.terminal
-    end
-    def starts_with(prefix)
+    }
+    func starts_with(prefix) {
         return self._find(prefix) != nil
-    end
-    def _find(text)
-        current = self.root
-        i = 0
-        while i < text.length()
-            character = text.char_at(i)
-            if !current.children.has(character)
+    }
+    private func _find(text) {
+        var current = self.root
+        var i = 0
+        while i < text.length() {
+            let character = text.char_at(i)
+            if !current.children.has(character) {
                 return nil
-            end
+            }
             current = current.children.get(character)
             i += 1
-        end
+        }
         return current
-    end
-    def size()
+    }
+    func size() {
         return self.count
-    end
-    def is_empty()
+    }
+    func is_empty() {
         return self.count == 0
-    end
-end
+    }
+}

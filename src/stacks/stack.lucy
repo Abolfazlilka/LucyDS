@@ -1,32 +1,32 @@
-class Stack
-    def initialize()
+class Stack {
+    func initialize() {
         self.items = []
-    end
-    def push(value)
+    }
+    func push(value) {
         self.items.push(value)
         return self.items.length()
-    end
-    def pop()
+    }
+    func pop() {
         return self.items.pop()
-    end
-    def peek()
+    }
+    func peek() {
         return self.items.last()
-    end
-    def size()
+    }
+    func size() {
         return self.items.length()
-    end
-    def is_empty()
+    }
+    func is_empty() {
         return self.items.length() == 0
-    end
-    def clear()
+    }
+    func clear() {
         self.items.clear()
         return self
-    end
-    def to_array()
-        result = []
-        for value in self.items
+    }
+    func to_array() {
+        let result = []
+        for value in self.items {
             result.push(value)
-        end
+        }
         return result
-    end
-end
+    }
+}
