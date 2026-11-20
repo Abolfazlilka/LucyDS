@@ -1,0 +1,90 @@
+# Graph algorithms expect Graph from graph.lucy. Vertices are string IDs.
+def breadth_first_search(graph, start)
+    visited = {}
+    order = []
+    if !graph.has_vertex(start)
+        return order
+    end
+    queue = [start]
+    visited.set(start, true)
+    head = 0
+    while head < queue.length()
+        vertex = queue[head]
+        head += 1
+        order.push(vertex)
+        for neighbor in graph.neighbors(vertex)
+            if !visited.has(neighbor)
+                visited.set(neighbor, true)
+                queue.push(neighbor)
+            end
+        end
+    end
+    return order
+end
+
+def depth_first_search(graph, start)
+    visited = {}
+    order = []
+    if !graph.has_vertex(start)
+        return order
+    end
+    stack = [start]
+    while stack.length() > 0
+        vertex = stack.pop()
+        if !visited.has(vertex)
+            visited.set(vertex, true)
+            order.push(vertex)
+            neighbors = graph.neighbors(vertex)
+            i = neighbors.length() - 1
+            while i >= 0
+                if !visited.has(neighbors[i])
+                    stack.push(neighbors[i])
+                end
+                i -= 1
+            end
+        end
+    end
+    return order
+end
+
+def dijkstra(graph, start)
+    distances = {}
+    visited = {}
+    vertices = graph.vertices()
+    for vertex in vertices
+        distances.set(vertex, nil)
+    end
+    if !graph.has_vertex(start)
+        return distances
+    end
+    distances.set(start, 0)
+    while true
+        current = nil
+        best = nil
+        for vertex in vertices
+            distance = distances.get(vertex)
+            if !visited.has(vertex) and distance != nil
+                if best == nil or distance < best
+                    best = distance
+                    current = vertex
+                end
+            end
+        end
+        if current == nil
+            break
+        end
+        visited.set(current, true)
+        for neighbor in graph.neighbors(current)
+            weight = graph.edge_weight(current, neighbor)
+            if weight < 0
+                return nil
+            end
+            candidate = best + weight
+            old = distances.get(neighbor)
+            if old == nil or candidate < old
+                distances.set(neighbor, candidate)
+            end
+        end
+    end
+    return distances
+end

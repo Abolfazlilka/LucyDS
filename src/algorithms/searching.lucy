@@ -1,0 +1,40 @@
+def linear_search(items, target)
+    i = 0
+    while i < items.length()
+        if items[i] == target
+            return i
+        end
+        i += 1
+    end
+    return nil
+end
+
+def binary_search(items, target)
+    low = 0
+    high = items.length() - 1
+    while low <= high
+        middle = int((low + high) / 2)
+        if items[middle] == target
+            return middle
+        else if items[middle] < target
+            low = middle + 1
+        else
+            high = middle - 1
+        end
+    end
+    return nil
+end
+
+def lower_bound(items, target)
+    low = 0
+    high = items.length()
+    while low < high
+        middle = int((low + high) / 2)
+        if items[middle] < target
+            low = middle + 1
+        else
+            high = middle
+        end
+    end
+    return low
+end

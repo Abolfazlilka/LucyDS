@@ -1,0 +1,146 @@
+def _copy_array(items)
+    result = []
+    for value in items
+        result.push(value)
+    end
+    return result
+end
+
+def bubble_sort(items)
+    result = _copy_array(items)
+    n = result.length()
+    i = 0
+    while i < n
+        j = 0
+        while j < n - i - 1
+            if result[j] > result[j + 1]
+                temp = result[j]
+                result[j] = result[j + 1]
+                result[j + 1] = temp
+            end
+            j += 1
+        end
+        i += 1
+    end
+    return result
+end
+
+def selection_sort(items)
+    result = _copy_array(items)
+    n = result.length()
+    i = 0
+    while i < n
+        smallest = i
+        j = i + 1
+        while j < n
+            if result[j] < result[smallest]
+                smallest = j
+            end
+            j += 1
+        end
+        if smallest != i
+            temp = result[i]
+            result[i] = result[smallest]
+            result[smallest] = temp
+        end
+        i += 1
+    end
+    return result
+end
+
+def insertion_sort(items)
+    result = _copy_array(items)
+    i = 1
+    while i < result.length()
+        value = result[i]
+        j = i - 1
+        while j >= 0 and result[j] > value
+            result[j + 1] = result[j]
+            j -= 1
+        end
+        result[j + 1] = value
+        i += 1
+    end
+    return result
+end
+
+def merge_sort(items)
+    if items.length() <= 1
+        return _copy_array(items)
+    end
+    middle = int(items.length() / 2)
+    left = []
+    right = []
+    i = 0
+    while i < middle
+        left.push(items[i])
+        i += 1
+    end
+    while i < items.length()
+        right.push(items[i])
+        i += 1
+    end
+    left = merge_sort(left)
+    right = merge_sort(right)
+    return _merge(left, right)
+end
+
+def _merge(left, right)
+    result = []
+    i = 0
+    j = 0
+    while i < left.length() and j < right.length()
+        if left[i] <= right[j]
+            result.push(left[i])
+            i += 1
+        else
+            result.push(right[j])
+            j += 1
+        end
+    end
+    while i < left.length()
+        result.push(left[i])
+        i += 1
+    end
+    while j < right.length()
+        result.push(right[j])
+        j += 1
+    end
+    return result
+end
+
+def quick_sort(items)
+    result = _copy_array(items)
+    _quick_sort_range(result, 0, result.length() - 1)
+    return result
+end
+
+def _quick_sort_range(items, low, high)
+    if low >= high
+        return
+    end
+    pivot = items[int((low + high) / 2)]
+    i = low
+    j = high
+    while i <= j
+        while items[i] < pivot
+            i += 1
+        end
+        while items[j] > pivot
+            j -= 1
+        end
+        if i <= j
+            temp = items[i]
+            items[i] = items[j]
+            items[j] = temp
+            i += 1
+            j -= 1
+        end
+    end
+    if low < j
+        _quick_sort_range(items, low, j)
+    end
+    if i < high
+        _quick_sort_range(items, i, high)
+    end
+end
