@@ -1,4 +1,4 @@
-class DoublyLinkedListNode {
+class _DLNode {
     func initialize(value) {
         self.value = value
         self.next = nil
@@ -14,7 +14,7 @@ class DoublyLinkedList {
     }
 
     func append(value) {
-        let node = DoublyLinkedListNode.new(value)
+        let node = _DLNode.new(value)
         if self.tail == nil {
             self.head = node
             self.tail = node
@@ -28,7 +28,7 @@ class DoublyLinkedList {
     }
 
     func prepend(value) {
-        let node = DoublyLinkedListNode.new(value)
+        let node = _DLNode.new(value)
         if self.head == nil {
             self.head = node
             self.tail = node
@@ -82,7 +82,7 @@ class DoublyLinkedList {
             current = current.next
             i += 1
         }
-        let node = DoublyLinkedListNode.new(value)
+        let node = _DLNode.new(value)
         node.prev = current.prev
         node.next = current
         current.prev.next = node

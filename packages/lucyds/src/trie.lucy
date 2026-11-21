@@ -1,4 +1,4 @@
-class TrieNode {
+class _TrieNode {
     func initialize() {
         self.children = {}
         self.terminal = false
@@ -7,7 +7,7 @@ class TrieNode {
 
 class Trie {
     func initialize() {
-        self.root = TrieNode.new()
+        self.root = _TrieNode.new()
         self.count = 0
     }
     func insert(word) {
@@ -16,7 +16,7 @@ class Trie {
         while i < word.length() {
             let character = word.char_at(i)
             if !current.children.has(character) {
-                current.children.set(character, TrieNode.new())
+                current.children.set(character, _TrieNode.new())
             }
             current = current.children.get(character)
             i += 1

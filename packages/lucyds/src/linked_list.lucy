@@ -1,5 +1,5 @@
 # Singly linked list. Indexes are zero-based.
-class LinkedListNode {
+class _LLNode {
     func initialize(value) {
         self.value = value
         self.next = nil
@@ -14,7 +14,7 @@ class LinkedList {
     }
 
     func append(value) {
-        let node = LinkedListNode.new(value)
+        let node = _LLNode.new(value)
         if self.head == nil {
             self.head = node
             self.tail = node
@@ -27,7 +27,7 @@ class LinkedList {
     }
 
     func prepend(value) {
-        let node = LinkedListNode.new(value)
+        let node = _LLNode.new(value)
         if self.head == nil {
             self.head = node
             self.tail = node
@@ -57,7 +57,7 @@ class LinkedList {
             previous = previous.next
             i += 1
         }
-        let node = LinkedListNode.new(value)
+        let node = _LLNode.new(value)
         node.next = previous.next
         previous.next = node
         self.count += 1

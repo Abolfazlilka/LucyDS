@@ -1,4 +1,4 @@
-class BSTNode {
+class _BSTNode {
     func initialize(value) {
         self.value = value
         self.left = nil
@@ -13,7 +13,7 @@ class BinarySearchTree {
     }
     func insert(value) {
         if self.root == nil {
-            self.root = BSTNode.new(value)
+            self.root = _BSTNode.new(value)
             self.count += 1
             return true
         }
@@ -23,14 +23,14 @@ class BinarySearchTree {
                 return false
             } else if value < current.value {
                 if current.left == nil {
-                    current.left = BSTNode.new(value)
+                    current.left = _BSTNode.new(value)
                     self.count += 1
                     return true
                 }
                 current = current.left
             } else {
                 if current.right == nil {
-                    current.right = BSTNode.new(value)
+                    current.right = _BSTNode.new(value)
                     self.count += 1
                     return true
                 }

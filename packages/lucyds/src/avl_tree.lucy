@@ -1,4 +1,4 @@
-class AVLNode {
+class _AVLNode {
     func initialize(value) {
         self.value = value
         self.left = nil
@@ -59,7 +59,7 @@ class AVLTree {
     private func _insert(node, value) {
         if node == nil {
             self.count += 1
-            return AVLNode.new(value)
+            return _AVLNode.new(value)
         }
         if value < node.value {
             node.left = self._insert(node.left, value)
